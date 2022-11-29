@@ -30,8 +30,9 @@ my-config:
   #    default-expir-time: 172800
   # 上传文件路径
   file:
-    upload-dir: classpath:/static/file/
+    upload-dir: ./static/file/
     show-mapping:
-      dns: 124.221.243.242
+#      dns: 124.221.243.242
+      dns: localhost
       port: 8989
       mapping: /static/file/

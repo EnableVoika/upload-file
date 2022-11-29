@@ -1,5 +1,6 @@
 package com.voika.uploadfile.infrastructure.utils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,17 +24,17 @@ public class UrlUtil {
         return buffer.toString();
     }
 
-    public static String resolveClassPath(String path) {
+    public static String resolveClassPath(String path, HttpServletRequest request) {
         if ("classpath".equals(path) || "classpath:".equals(path)) {
-            return UrlUtil.class.getClassLoader().getResource("").getPath();
+            return request.getClass().getClassLoader().getResource("").getPath();
         }
         if (StringUtil.isNotEmpty(path) && (0 == path.indexOf("classpath:"))) {
             String result = "";
             if ("".endsWith(path.replace("classpath:", ""))) {
-                result = UrlUtil.class.getClassLoader().getResource("").getPath();
+                result = request.getClass().getClassLoader().getResource("").getPath();
                 return result;
             }
-            String classpath =  UrlUtil.class.getClassLoader().getResource("").getPath();
+            String classpath =  request.getClass().getClassLoader().getResource("").getPath();
             if (!classpath.endsWith("/")) {
                 classpath = classpath + "/";
             }

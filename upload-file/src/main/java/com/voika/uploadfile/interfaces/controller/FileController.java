@@ -14,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -48,7 +51,7 @@ public class FileController {
                 throw new BusinessException("文件file不能为空");
             }
             // service
-            String savePath = UrlUtil.resolveClassPath(uploadDir);
+            String savePath = UrlUtil.resolveClassPath(uploadDir,request);
             File saveDir = new File(savePath);
             if (!saveDir.exists()) {
                 saveDir.mkdirs();
@@ -58,8 +61,10 @@ public class FileController {
             String suffix = split[split.length - 1];
             String newFileName = UUID.randomUUID().toString().replace("-", "") + "." + suffix;
             savePath = savePath + newFileName;
-            File newFile = new File(savePath);
-            file.transferTo(newFile);
+            log.info("savePath==============================================>{}", savePath);
+            FileOutputStream fos = new FileOutputStream(savePath);
+            fos.write(file.getBytes());
+            fos.close();
             Map<String, Object> resp = new HashMap<>();
             StringBuffer path = new StringBuffer("http://");
             String contextPath = request.getContextPath();

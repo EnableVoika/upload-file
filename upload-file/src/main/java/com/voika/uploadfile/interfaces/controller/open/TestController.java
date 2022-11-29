@@ -33,11 +33,8 @@ public class TestController {
     @RequestMapping
     public JsonData test() {
         try {
-            A a = new A();
-            a.setKey1("2");
-            a.setKey2(null);
-            a.setKey3(new Date());
-            return JsonData.success(a);
+
+            return JsonData.success();
         } catch (BusinessException e) {
             int code = null == e.getCode() ? 1 : e.getCode();
             return JsonData.error(e.getMessage(), code);

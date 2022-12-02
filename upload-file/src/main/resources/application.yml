@@ -32,7 +32,7 @@ my-config:
   file:
     upload-dir: ./static/file/
     show-mapping:
-#      dns: 124.221.243.242
-      dns: localhost
+      dns: 124.221.243.242
+#      dns: localhost
       port: 8989
       mapping: /static/file/
